@@ -4,29 +4,51 @@
       app
       color="primary"
       dark
+      elevation="0"
     >
       <div class="d-flex align-center">
         <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
+          v-if="['xs'].includes($vuetify.breakpoint.name)"
+          alt="fatefeta Logo"
+          class="shrink mx-4"
           contain
           src="@/assets/logo.png"
           transition="scale-transition"
-          width="30"
+          width="40"
+          dense=true
+        />
+        <v-img
+          v-else
+          alt="fatefeta Logo"
+          class="shrink mx-4 mt-12"
+          contain
+          src="@/assets/logo.png"
+          transition="scale-transition"
+          width="100"
+          dense=true
         />
 
-        <span class="mr-2">fatefeta</span>
+        <h2 v-if="!['xs'].includes($vuetify.breakpoint.name)" class="mr-2">fatefeta</h2>
       </div>
 
       <v-spacer></v-spacer>
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        v-if="loginStatus==='Not Login Yet'"
         target="_blank"
         text
       >
-        <span class="mr-2" v-if="isLoggedIn">{{logoutText}}</span>
-        <v-icon v-if="isLoggedIn">mdi-exit-to-app</v-icon>
+        <v-icon class="mr-2">mdi-shape-square-plus</v-icon>
+        <span v-if="!['xs'].includes($vuetify.breakpoint.name)" class="mr-2">Sign Up</span>
+      </v-btn>
+
+      <v-btn
+        v-else
+        target="_blank"
+        text
+      >
+        <span v-if="!['xs'].includes($vuetify.breakpoint.name)" class="mr-2">Logout</span>
+        <v-icon class="ml-0">mdi-exit-to-app</v-icon>
       </v-btn>
     </v-app-bar>
 
@@ -47,9 +69,11 @@ export default {
   },
 
   data: () => ({
-    isLoggedIn: true,
-    logoutText: 'Logout',
-    content: '',
+    loginStatus: 'Not Login Yet',
   }),
+
+  mounted () {
+    console.log(this.$vuetify.breakpoint.name)
+  },
 };
 </script>
