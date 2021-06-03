@@ -10,19 +10,12 @@
           alt="Vuetify Logo"
           class="shrink mr-2"
           contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+          src="@/assets/logo.png"
           transition="scale-transition"
-          width="40"
+          width="30"
         />
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+        <span class="mr-2">fatefeta</span>
       </div>
 
       <v-spacer></v-spacer>
@@ -32,8 +25,8 @@
         target="_blank"
         text
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+        <span class="mr-2" v-if="isLoggedIn">{{logoutText}}</span>
+        <v-icon v-if="isLoggedIn">mdi-exit-to-app</v-icon>
       </v-btn>
     </v-app-bar>
 
@@ -54,7 +47,9 @@ export default {
   },
 
   data: () => ({
-    //
+    isLoggedIn: true,
+    logoutText: 'Logout',
+    content: '',
   }),
 };
 </script>
