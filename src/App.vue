@@ -20,11 +20,11 @@
         <v-img
           v-else
           alt="fatefeta Logo"
-          class="shrink mx-4 mt-12"
+          class="shrink mx-4 mt-6"
           contain
           src="@/assets/logo.png"
           transition="scale-transition"
-          width="100"
+          width="80"
           dense=true
         />
 
@@ -71,9 +71,5 @@ export default {
   data: () => ({
     loginStatus: 'Not Login Yet',
   }),
-
-  mounted () {
-    console.log(this.$vuetify.breakpoint.name)
-  },
 };
 </script>
