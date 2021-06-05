@@ -5,36 +5,36 @@
       color="primary"
       dark
       elevation="0"
+      dense=true
     >
       <div class="d-flex align-center">
         <v-img
           v-if="['xs'].includes($vuetify.breakpoint.name)"
-          alt="fatefeta Logo"
           class="shrink mx-4"
           contain
           src="@/assets/logo.png"
           transition="scale-transition"
-          width="40"
+          width="30"
           dense=true
         />
         <v-img
           v-else
           alt="fatefeta Logo"
-          class="shrink mx-4 mt-6"
+          class="shrink mx-4 mt-4"
           contain
           src="@/assets/logo.png"
           transition="scale-transition"
-          width="80"
+          width="60"
           dense=true
         />
 
-        <h2 v-if="!['xs'].includes($vuetify.breakpoint.name)" class="mr-2">fatefeta</h2>
+        <h2 v-if="!['xs'].includes($vuetify.breakpoint.name)" class="mr-2">{{title}}</h2>
       </div>
 
       <v-spacer></v-spacer>
 
       <v-btn
-        v-if="loginStatus==='Not Login Yet'"
+        v-if="$store.session===null"
         target="_blank"
         text
       >
@@ -69,7 +69,13 @@ export default {
   },
 
   data: () => ({
-    loginStatus: 'Not Login Yet',
+    title: 'fatefeta'
   }),
+
+  methods: {
+    getUrl(src) {
+      return require('@/' + src)
+    }
+  }
 };
 </script>
