@@ -5,7 +5,6 @@
       color="primary"
       dark
       elevation="0"
-      dense=true
     >
       <div class="d-flex align-center">
         <v-img
@@ -34,7 +33,7 @@
       <v-spacer></v-spacer>
 
       <v-btn
-        v-if="$store.session===null"
+        v-if="$store.state.session===null"
         target="_blank"
         text
       >
@@ -53,29 +52,17 @@
     </v-app-bar>
 
     <v-main>
-      <Login/>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Login from './components/Login';
-
 export default {
   name: 'App',
-
-  components: {
-    Login,
-  },
 
   data: () => ({
     title: 'fatefeta'
   }),
-
-  methods: {
-    getUrl(src) {
-      return require('@/' + src)
-    }
-  }
 };
 </script>

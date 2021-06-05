@@ -26,7 +26,14 @@
               </div>
             </v-col>
             <v-col class="mt-6" cols="12">
-              <v-btn class="mx-auto py-6 rounded-xl" color="primary lighten-1" width="100%" type="submit" elevation="0">
+              <v-btn
+                class="mx-auto py-6 rounded-xl"
+                color="primary lighten-1"
+                width="100%"
+                type="submit"
+                elevation="0"
+                @click.prevent="login"
+              >
                 登录
               </v-btn>
             </v-col>
@@ -67,7 +74,6 @@
       refreshAuthCode() {
         this.identifyCode = "";
         this.makeAuthCode(this.identifyCodes, 4);
-        console.info('Auth Code refreshed: ' + this.identifyCode)
       },
       randomNum(min, max) {
         return Math.floor(Math.random() * (max - min) + min)
@@ -79,8 +85,19 @@
             this.randomNum(0, this.identifyCodes.length)
           ]
         }
-        console.log(this.identifyCode);
       },
+      login() {
+        console.info('session: ' + this.$store.state.session);
+        this.$store.state.session = {
+          token: 'xheudhew8239xs2',
+          username: 'tester',
+          avatar: null,
+          is_admin: false,
+          updated_at: '2021-4-18 12:23:15',
+          expirity: 8 * 60 * 60,
+        };
+        this.$router.push({name: 'Main'});
+      }
     },
 
     mounted() {
