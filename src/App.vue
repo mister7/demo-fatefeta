@@ -5,6 +5,7 @@
       color="primary"
       dark
       elevation="0"
+      dense=true
     >
       <div class="d-flex align-center">
         <v-img
@@ -45,8 +46,14 @@
         v-else
         target="_blank"
         text
+        @click="logout"
       >
-        <span v-if="!['xs'].includes($vuetify.breakpoint.name)" class="mr-2">Logout</span>
+        <span
+          v-if="!['xs'].includes($vuetify.breakpoint.name)"
+          class="mr-2"
+        >
+            Logout
+        </span>
         <v-icon class="ml-0">mdi-exit-to-app</v-icon>
       </v-btn>
     </v-app-bar>
@@ -64,5 +71,12 @@ export default {
   data: () => ({
     title: 'fatefeta'
   }),
+
+  methods: {
+    logout() {
+      this.$store.commit('session_out')
+      this.$router.push({name: 'Login'});
+    }
+  }
 };
 </script>

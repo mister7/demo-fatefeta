@@ -87,15 +87,15 @@
         }
       },
       login() {
-        console.info('session: ' + this.$store.state.session);
-        this.$store.state.session = {
-          token: 'xheudhew8239xs2',
+        this.$store.commit('session_in', {
+          id: 12,
           username: 'tester',
           avatar: null,
           is_admin: false,
-          updated_at: '2021-4-18 12:23:15',
-          expirity: 8 * 60 * 60,
-        };
+          updated_at: new Date(),
+          expirity: 8 * 60 * 60
+        })
+
         this.$router.push({name: 'Main'});
       }
     },
