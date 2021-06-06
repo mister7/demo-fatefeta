@@ -3,16 +3,16 @@ module.exports = {
     'vuetify'
   ],
   devServer: {
-    port: '80',
     proxy: {
-        '/api': {
-          target: 'https://www.baidu.com',
-          ws: true,
-          changeOrigin: true,
-          pathRewrite: {
-            '^/api': '',
-          }
+      '/api': {
+        target: 'http://siwei.me',
+        changeOrigin: true,
+        ws: true,
+        secure: false,
+        pathRewrite: {
+          '^/api': '/',
         }
+      }
     },
   }
 }

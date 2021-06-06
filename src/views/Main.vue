@@ -64,14 +64,10 @@
             return false;  
         }
       
-        axios.get('api/fatefeta/search').then((response) => {
+        axios.get('api/interface/blogs/all').then((response) => {
           console.info(response)
         }).catch((error) => {
-          console.info('>>>>>>')
           console.info(error.response)
-          console.info('======')
-          console.info(error.request.status)
-          console.info('<<<<<<')
         })
       }
     }
