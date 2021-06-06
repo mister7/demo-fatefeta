@@ -40,6 +40,8 @@
 </template>
 
 <script>
+  import axios from 'axios'
+
   export default {
     name: 'Login',
 
@@ -60,9 +62,17 @@
 
         if(!/image\/\w+/.test(file.type)){  
             return false;  
-        }  
+        }
       
-        this.img_src = URL.createObjectURL(file)
+        axios.get('api/fatefeta/search').then((response) => {
+          console.info(response)
+        }).catch((error) => {
+          console.info('>>>>>>')
+          console.info(error.response)
+          console.info('======')
+          console.info(error.request.status)
+          console.info('<<<<<<')
+        })
       }
     }
   }
