@@ -1,5 +1,14 @@
 <template>
   <v-container fill-height fluid>
+    <v-snackbar
+      justify="center"
+      light
+      centered
+      v-model="failedToLogin"
+      timeout=1000
+    >
+      {{reasonableOfLoginFailure}}
+    </v-snackbar>
     <v-row align="center" justify="center">
       <v-col xs="12" sm="8" md="6" lg="6" xl="4">
         <v-card
@@ -12,13 +21,26 @@
               <center><h3>用户登录</h3></center>
             </v-col>
             <v-col cols="12">
-              <v-text-field label="用户名 / 手机号码 / 邮件地址"/>
+              <v-text-field
+                label="用户名 / 手机号码 / 邮件地址"
+                v-model="loginUser"
+              >
+              </v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field label="密码" type="password"/>
+              <v-text-field
+                label="密码"
+                type="password"
+                v-model="loginPass"
+              >
+              </v-text-field>
             </v-col>
             <v-col :cols="['xs'].includes($vuetify.breakpoint.name)?6:8">
-              <v-text-field label="验证码"/>
+              <v-text-field
+                label="验证码"
+                v-model="loginAuthCode"
+              >
+              </v-text-field>
             </v-col>
             <v-col :cols="['xs'].includes($vuetify.breakpoint.name)?6:4">
               <div @click="refreshAuthCode">
@@ -67,7 +89,12 @@
 
     data: () => ({
       identifyCodes: "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
-      identifyCode: '123456'
+      identifyCode: '123456',
+      failedToLogin: false,
+      reasonableOfLoginFailure: '',
+      loginUser: '',
+      loginPass: '',
+      loginAuthCode: '',
     }),
 
     methods: {
@@ -87,16 +114,35 @@
         }
       },
       login() {
-        this.$store.commit('session_in', {
-          id: 12,
-          username: 'tester',
-          avatar: null,
-          is_admin: false,
-          updated_at: new Date(),
-          expirity: 8 * 60 * 60
-        })
+        if (this.loginUser == '') {
+          this.reasonableOfLoginFailure = '青输入用户名/手机号'
+          this.failedToLogin = true
+        } else if(this.loginPass == '') {
+          this.reasonableOfLoginFailure = '青输入密码'
+          this.failedToLogin = true
+        } else if(this.loginAuthCode == '') {
+          this.reasonableOfLoginFailure = '青输入验证码'
+          this.failedToLogin = true
+        } else if ((this.loginUser != 'tester') || (this.loginPass != '123456')) {
+          this.reasonableOfLoginFailure = '用户不存在或密码错误'
+          this.failedToLogin = true
+        } else if(this.loginAuthCode.toUpperCase() != this.identifyCode.toUpperCase()) {
+          this.reasonableOfLoginFailure = '验证码错误'
+          this.failedToLogin = true
+          this.loginAuthCode = ''
+          this.refreshAuthCode()
+        } else {
+          this.$store.commit('session_in', {
+            id: 12,
+            username: 'tester',
+            avatar: null,
+            is_admin: false,
+            updated_at: new Date(),
+            expirity: 8 * 60 * 60
+          })
 
-        this.$router.push({name: 'Main'});
+          this.$router.push({name: 'Main'});
+        }
       }
     },
 

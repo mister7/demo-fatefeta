@@ -30,11 +30,6 @@
           <span style="font-size:10pt">用 fatefeta 镜头拍照并上传照片</span>
         </v-layout>
       </v-col>
-      <v-col cols="12" offset-12 v-if="img_src!==null">
-        <v-layout justify-center>
-          <img :src="img_src" width="50%"/>
-        </v-layout>
-      </v-col>
     </v-row>
   </v-container>
 </template>
