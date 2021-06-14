@@ -83,6 +83,12 @@
   export default {
     name: 'Login',
 
+    created: function() {
+      if ('id' in localStorage) {
+        this.$router.push({name: 'Main'});
+      }
+    },
+
     components: {
       AuthCode
     },
@@ -132,14 +138,8 @@
           this.loginAuthCode = ''
           this.refreshAuthCode()
         } else {
-          this.$store.commit('session_in', {
-            id: 12,
-            username: 'tester',
-            avatar: null,
-            is_admin: false,
-            updated_at: new Date(),
-            expirity: 8 * 60 * 60
-          })
+          localStorage.setItem('id', 12)
+          localStorage.setItem('username', this.loginUser)
 
           this.$router.push({name: 'Main'});
         }

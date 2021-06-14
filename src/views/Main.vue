@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height fluid>
     <v-row class="mb-12" align="center" justify="center">
-      <v-col cols="12" offset-12  v-if="img_src===null">
+      <v-col cols="12" offset-12>
         <v-layout justify-center>
           <v-btn
             class="mx-auto py-6 rounded-xl"
@@ -25,7 +25,7 @@
           </div>
         </v-layout>
       </v-col>
-      <v-col cols="12" offset-12 v-if="img_src===null">
+      <v-col cols="12" offset-12>
         <v-layout justify-center>
           <span style="font-size:10pt">用 fatefeta 镜头拍照并上传照片</span>
         </v-layout>
@@ -35,16 +35,20 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  // import axios from 'axios'
 
   export default {
     name: 'Login',
 
+    created: function() {
+      if (!('id' in localStorage)) {
+        this.$router.push({name: 'Login'})
+      }
+    },
+
     data() {
       return {
-        formData: new FormData(),
-        fileInfo: null,
-        img_src: null
+        fileInfo: null
       }
     },
 
@@ -56,14 +60,17 @@
         const file = this.$refs.uploadFileComponent.files[0];
 
         if(!/image\/\w+/.test(file.type)){  
-            return false;  
+            return false;
         }
+
+        this.$store.commit('matched_list', [])
+        this.$router.push({name: 'List'});
       
-        axios.get('api/interface/blogs/all').then((response) => {
-          console.info(response)
-        }).catch((error) => {
-          console.info(error.response)
-        })
+        // axios.get('api/interface/blogs/all').then((response) => {
+        //   console.info(response)
+        // }).catch((error) => {
+        //   console.info(error.response)
+        // })
       }
     }
   }

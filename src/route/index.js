@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Login from '@/views/Login'
 import Main from '@/views/Main'
+import List from '@/views/List'
 
 Vue.use(VueRouter)
 
@@ -16,9 +17,14 @@ const router = new VueRouter({
             component: Login
         },
         {
-            path: '/session',
+            path: '/search',
             name: 'Main',
             component: Main
+        },
+        {
+            path: '/list',
+            name: 'List',
+            component: List
         }
     ]
 })

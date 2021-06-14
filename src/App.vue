@@ -74,7 +74,9 @@ export default {
 
   methods: {
     logout() {
-      this.$store.commit('session_out')
+      localStorage.removeItem('id')
+      localStorage.removeItem('username')
+
       this.$router.push({name: 'Login'});
     }
   }

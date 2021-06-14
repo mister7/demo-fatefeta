@@ -5,14 +5,11 @@ Vue.use(Vuex)
 
 var store = new Vuex.Store({
     state: {
-      session: null
+      matched_list: null
     },
     mutations:{
-      session_in (state, info) {
-        state.session = info
-      },
-      session_out (state) {
-        state.session = null
+      matched_list (state, list) {
+        state.matched_list = list
       }
     }
   })
